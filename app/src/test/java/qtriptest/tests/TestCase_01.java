@@ -59,7 +59,7 @@ public class TestCase_01{
     HomePage.navigateToRegisterPage();
     registerPage.register(email,password,password,true);
     HomePage.navigateToLogInPage();
-    loginPage.logIn(registerPage.email,registerPage.password);
+    loginPage.logIn(registerPage.getRegisteredEmail(),registerPage.getRegisteredPassword());
     Thread.sleep(2000);
     HomePage.logOut();
     Thread.sleep(2000);

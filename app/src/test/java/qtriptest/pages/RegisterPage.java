@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public class RegisterPage {
     RemoteWebDriver driver;
-    public String email;
-    public String password;
+    private String email;
+    private String password;
     public RegisterPage(RemoteWebDriver driver){
         this.driver = driver;
         AjaxElementLocatorFactory ajax = new AjaxElementLocatorFactory(driver,10);
@@ -57,4 +57,12 @@ public class RegisterPage {
         action.sendKeys(inputConfirmPasswordElement, confirmPassword).perform();
         action.click(registerNowButton).perform();
     }
+
+    public String getRegisteredEmail(){
+        return this.email;
+    }
+    public String getRegisteredPassword(){
+        return this.password;
+    }
+
 }
