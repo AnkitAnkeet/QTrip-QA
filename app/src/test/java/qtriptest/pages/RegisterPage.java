@@ -45,6 +45,9 @@ public class RegisterPage {
             email = String.format("%s"+email,uuidStr);
             this.email = email;
             this.password = password;
+        }else{
+            this.email=email;
+            this.password=password;
         }
        
 

@@ -39,7 +39,7 @@ public class LoginPage{
     action.click(inputPasswordElement).perform();
     action.sendKeys(inputPasswordElement,password).perform();
     action.click(logInButtonElement).perform();
-    Thread.sleep(5000);
+    Thread.sleep(3000);
     }
 
     //login with user defined credentials(method overloading)

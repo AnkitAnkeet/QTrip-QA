@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test case suite for QTrip application">
+        <test name="Test execution on chrome browser">
+            <groups>
+                 <run>
+                    <include name="Login Flow"/>
+                    <include name="Search and Filter flow"/>
+                    <include name="Booking and Cancellation Flow"/>
+                    <include name="Reliability Flow"/>
+                 </run>
+            </groups>
+            <classes>
+                    <class name="qtriptest.tests.TestCase_01"/>
+                    <class name="qtriptest.tests.testCase_02"/>
+                    <class name="qtriptest.tests.testCase_03"/>
+                    <class name="qtriptest.tests.testCase_04"/>
+            </classes> -->
+    </test>
+</suite>
