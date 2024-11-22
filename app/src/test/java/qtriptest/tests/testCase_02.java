@@ -1,7 +1,7 @@
 package qtriptest.tests;
 
 import qtriptest.DP;
-import qtriptest.DriverSingleton;
+import qtriptest.SeleniumWrapper;
 import qtriptest.pages.AdventurePage;
 import qtriptest.pages.homePage;
 import java.net.MalformedURLException;
@@ -19,14 +19,14 @@ public class testCase_02 {
     AdventurePage adventurePage;
 
 
-    @BeforeTest
+    @BeforeTest(alwaysRun = true)
     public void config() throws MalformedURLException{
-        driver = DriverSingleton.getDriver("chrome");
-        driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
+        driver = SeleniumWrapper.driver;
+        SeleniumWrapper.navigate("https://qtripdynamic-qa-frontend.vercel.app/");
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-
+       
         //initialization of required classes
          HomePage = new homePage(driver);
          adventurePage = new AdventurePage(driver);
@@ -34,7 +34,7 @@ public class testCase_02 {
         
 
     }
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void endSession(){
      if(driver != null){
      driver.quit();
@@ -44,8 +44,6 @@ public class testCase_02 {
      
     @Test(priority = 2, dataProvider = "datasetforQTrip", dataProviderClass = DP.class, groups={"Search and Filter flow"})
     public void TestCase02(String CityName,String Category_Filter,String DurationFilter,String ExpectedFilteredResults,String ExpectedUnFilteredResults) throws InterruptedException{
-        // HomePage.search("Bhubaneswar");
-        // HomePage.clickOnResult();
         HomePage.search(CityName);
         HomePage.cityVerifiedAsPerSearched(CityName);
         HomePage.clickOnResult();

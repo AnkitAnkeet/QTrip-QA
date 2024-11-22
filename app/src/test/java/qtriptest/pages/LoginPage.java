@@ -32,7 +32,6 @@ public class LoginPage{
     WebDriverWait wait = new WebDriverWait(driver,10);
     wait.until(ExpectedConditions.visibilityOf(logInButtonElement));
     //creating an instance of RegisterPage class to use that particular email used in registration process
-    //RegisterPage registerPage = new RegisterPage(driver);
     Actions action = new Actions(driver);
     action.click(inputEmailElement).perform();
     action.sendKeys(inputEmailElement,email).perform();
@@ -42,19 +41,5 @@ public class LoginPage{
     Thread.sleep(3000);
     }
 
-    //login with user defined credentials(method overloading)
-    // public void logIn(String email,String password){
-    //     WebDriverWait wait = new WebDriverWait(driver,10);
-    //     wait.until(ExpectedConditions.visibilityOf(logInButtonElement));
-
-    //     Actions action = new Actions(driver);
-    //     action.click(inputEmailElement).perform();
-    //     action.sendKeys(inputEmailElement,email).perform();
-    //     action.click(inputPasswordElement).perform();
-    //     action.sendKeys(inputPasswordElement,password).perform();
-    //     action.click(logInButtonElement).perform();
-    //     System.out.println("User loggedin successfully!");
-
     }
-
 

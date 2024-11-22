@@ -5,12 +5,11 @@ import qtriptest.pages.homePage;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
 import qtriptest.DP;
-import qtriptest.DriverSingleton;
+import qtriptest.SeleniumWrapper;
+
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.remote.DesiredCapabilities;
+
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -43,9 +42,8 @@ public class TestCase_01{
 
     
 
-    driver = DriverSingleton.getDriver("chrome");
-
-    driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
+    driver = SeleniumWrapper.driver;
+    SeleniumWrapper.navigate("https://qtripdynamic-qa-frontend.vercel.app/");
     driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -57,7 +55,7 @@ public class TestCase_01{
 
   }
    
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void endSession(){
      if(driver != null){
      driver.quit();

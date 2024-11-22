@@ -1,14 +1,12 @@
 package qtriptest.tests;
 
 import qtriptest.DP;
-import qtriptest.DriverSingleton;
+import qtriptest.SeleniumWrapper;
 import qtriptest.pages.*;
 
 import java.net.MalformedURLException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
@@ -24,10 +22,11 @@ public class testCase_03 {
     HistoryPage historyPage;
 
 
-    @BeforeTest
+    @BeforeTest(alwaysRun = true)
     public void config() throws MalformedURLException{
-        driver = DriverSingleton.getDriver("chrome");
-        driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
+        driver = SeleniumWrapper.driver;
+        //driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
+        SeleniumWrapper.navigate("https://qtripdynamic-qa-frontend.vercel.app/");
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -42,7 +41,7 @@ public class testCase_03 {
         
 
     }
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void endSession(){
      if(driver != null){
      driver.quit();

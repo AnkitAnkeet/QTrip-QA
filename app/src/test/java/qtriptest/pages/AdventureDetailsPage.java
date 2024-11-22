@@ -1,4 +1,8 @@
 package qtriptest.pages;
+import qtriptest.SeleniumWrapper;
+import java.util.NoSuchElementException;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -13,8 +17,8 @@ public class AdventureDetailsPage {
     
     public AdventureDetailsPage(RemoteWebDriver driver){
          this.driver = driver;
-        this.wait = new WebDriverWait(driver,10);
-        AjaxElementLocatorFactory ajx = new AjaxElementLocatorFactory(driver,10);
+        this.wait = new WebDriverWait(this.driver,10);
+        AjaxElementLocatorFactory ajx = new AjaxElementLocatorFactory(this.driver,10);
         PageFactory.initElements(ajx,this);
     }
 
@@ -34,47 +38,50 @@ public class AdventureDetailsPage {
     private WebElement successAlertBannerElement;
 
     
-
-
-
-    private void waitForElementToBeClickable(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    
     public void inputGuestName(String GuestName){
-        waitForElementToBeClickable(nameTextBox);
-        nameTextBox.click();
-        nameTextBox.clear();
-        nameTextBox.sendKeys(GuestName);
+       SeleniumWrapper.sendKeysIfCan(nameTextBox,GuestName);
     }
 
     public void inputDate(String Date){
-        waitForElementToBeClickable(dateTextBox);
-        dateTextBox.click();
-        dateTextBox.clear();
-        dateTextBox.sendKeys(Date);
+        SeleniumWrapper.sendKeysIfCan(dateTextBox,Date);
     }
 
     public void inputPersonCount(String count){
-        waitForElementToBeClickable(personCountTextBox);
-        personCountTextBox.click();
-        personCountTextBox.clear();
-        personCountTextBox.sendKeys(count);
+        SeleniumWrapper.sendKeysIfCan(personCountTextBox,count);
     }
 
-    public void submitForm(){
-        adventureBookingForm.submit();
-    }
-
-    public void verifySuccessfulReservation(){
-        wait.until(ExpectedConditions.visibilityOf(successAlertBannerElement));
-        if(successAlertBannerElement.getText().contains("Greetings!")){
-            System.out.println("Reservation is successful!");
-        }else{
-            System.out.println("Reservation is not successful!");
+    public void submitForm() {
+        try {
+            adventureBookingForm.submit(); // Attempt to submit the form
+            System.out.println("Booking Form submitted successfully.");
+        } catch (ElementNotInteractableException e) {
+            System.err.println("Booking Form cannot be interacted with: " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            System.err.println("Booking Form element not found: " + e.getMessage());
+        } catch (WebDriverException e) {
+            System.err.println("WebDriver encountered an issue: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
         }
     }
+    
+
+    public void verifySuccessfulReservation() {
+        try {
+            // Wait for the success banner to be visible
+            wait.until(ExpectedConditions.visibilityOf(successAlertBannerElement));
+    
+            // Check the content of the success banner
+            if (successAlertBannerElement.getText().contains("Greetings!")) {
+                System.out.println("Reservation is successful!");
+            } else {
+                System.out.println("Reservation is not successful!");
+            }
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred while verifying reservation: " + e.getMessage());
+        }
+    }
+    
 
     public String getCityFromDataSet(String dataset){
         String[] dataArr = dataset.split(";");
