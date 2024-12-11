@@ -15,6 +15,6 @@
                     <class name="qtriptest.tests.testCase_02"/>
                     <class name="qtriptest.tests.testCase_03"/>
                     <class name="qtriptest.tests.testCase_04"/>
-            </classes> -->
+            </classes>
     </test>
 </suite>

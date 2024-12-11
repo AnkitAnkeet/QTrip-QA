@@ -1,10 +1,14 @@
 package qtriptest;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.NoSuchElementException;
-
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -88,6 +92,15 @@ public class SeleniumWrapper {
             }
         }
         return element;
+    }
+
+    public static String capture(RemoteWebDriver driver) throws IOException{
+        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        File dest = new File(System.getProperty("user.dir")+"/Reports/"+System.currentTimeMillis()+".png");
+        String absPath = dest.getAbsolutePath();
+        FileUtils.copyFile(srcFile,dest);
+        System.out.println(absPath);
+        return absPath;
     }
 
 

@@ -2,19 +2,15 @@ package qtriptest.tests;
 import qtriptest.DP;
 import qtriptest.SeleniumWrapper;
 import qtriptest.pages.*;
-
 import java.net.MalformedURLException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
-public class testCase_04 {
-    RemoteWebDriver driver;
+public class testCase_04 extends BaseTest{
     homePage HomePage;
     RegisterPage registerPage;
     LoginPage loginPage;
@@ -23,15 +19,12 @@ public class testCase_04 {
     HistoryPage historyPage;
 
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     public void config() throws MalformedURLException{
-        driver = SeleniumWrapper.driver;
-        SeleniumWrapper.navigate("https://qtripdynamic-qa-frontend.vercel.app/");
-        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 
         //initialization of required classes
+        driver = SeleniumWrapper.driver;
          HomePage = new homePage(driver);
          adventurePage = new AdventurePage(driver);
          registerPage = new RegisterPage(driver);
@@ -40,12 +33,6 @@ public class testCase_04 {
          historyPage = new HistoryPage(driver);
         
 
-    }
-    @AfterTest(alwaysRun = true)
-    public void endSession(){
-     if(driver != null){
-     driver.quit();
-      }
     }
     @Test(priority = 4, dataProvider = "datasetforQTrip", dataProviderClass = DP.class, groups ={"Reliability Flow"})
     public void TestCase04(String NewUserName, String Password, String dataset1, String dataset2, String dataset3) throws InterruptedException{

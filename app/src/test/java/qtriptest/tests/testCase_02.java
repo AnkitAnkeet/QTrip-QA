@@ -6,39 +6,25 @@ import qtriptest.pages.AdventurePage;
 import qtriptest.pages.homePage;
 import java.net.MalformedURLException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
-public class testCase_02 {
-    RemoteWebDriver driver;
+public class testCase_02 extends BaseTest {
     homePage HomePage;
     AdventurePage adventurePage;
 
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     public void config() throws MalformedURLException{
-        driver = SeleniumWrapper.driver;
-        SeleniumWrapper.navigate("https://qtripdynamic-qa-frontend.vercel.app/");
-        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-       
         //initialization of required classes
+        driver = SeleniumWrapper.driver;
          HomePage = new homePage(driver);
          adventurePage = new AdventurePage(driver);
          
         
 
-    }
-    @AfterTest(alwaysRun = true)
-    public void endSession(){
-     if(driver != null){
-     driver.quit();
-      }
     }
 
      
